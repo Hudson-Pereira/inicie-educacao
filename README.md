@@ -1,73 +1,48 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+API criada por Hudson Oliveira, desenvolvedor JavaScript júnior.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Foram utilizadas nessa API as seguintes ferramentas:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  - NestJs
+  - Node-fetch
+  - ThunderClient
+  - TypeScript
+  - Docker
 
-## Description
+Para rodar a API localmente, deve-se utilizar os seguintes comandos: 
+  - Para criar a imagem do NodeJs: 
+    - docker build . -t <name>
+  - Para rodar o container com o servidor:
+    - docker run -p 3000:3000 -d <name>
+  - Para executar o container: 
+    - docker exec -it <name> /bin/bash
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Essa API foi criada com intuito de consumir a API que se encontra no link: 
+  - https://gorest.co.in/
 
-## Installation
+Requisitos:  
+ - Criar um novo usuário dentro do sistema:
+  - Foi criada a rota user, com método POST, onde serão inseridos os dados NAME, EMAIL, GENDER, STATUS. Ao criar um usuário novo, os dados inseridos serão retornados juntamente com o ID cadastrado automaticamente para uso posterior.
 
-```bash
-$ npm install
-```
+ - Listar todos os usuários da API e encontrar o usuário criado através do ID do mesmo:
+  - Foi criada a rota user, com o método GET, onde serão listados aproximadamente 20 usuários cadastrados,
+    sendo listados do mais recente para o mais antigo, provavelmente, no momento do teste desta API, o usuário criado aparecerá no topo da lista, caso nenhuma outra pessoa esteja utilizando a api consumida ao mesmo tempo. 
+  - Foi criada a rota user/<id>, com o método GET, onde será listado apenas o usuário cadastrado sob o ID  declarado na rota.  Essa rota retorna qualquer usuário cadastrado na lista pública, não sendo exclusivamente para o cadastrado no momento do teste.
 
-## Running the app
+ - Criar um novo post para o usuário criado:
+  - Foi criada a rota post, com o método POST, onde serão inseridos os dados USER_ID, TITLE, BODY. O campo USER_ID já está com validação nativa da api consumida para criar apenas com usuários cadastrados na lista pública, sendo impossível cadastrar um novo post se o usuário ainda não estiver cadastrado. Ao finalizar o cadastro, os dados inseridos serão retornados juntamente com o ID cadastrado automaticamente para uso posterior.
 
-```bash
-# development
-$ npm run start
+ - Criar um novo comentário dentro do post criado:
+  - Foi criada a rota comment, com o método POST, onde serão inseridos os dados POST_ID, NAME, EMAIL e BODY. O campo POST_ID já está com validação nativa da api consumida para criar apenas com posts cadastrados na lista pública, sendo impossível cadastrar um novo comentário se o post ainda não estiver cadastrado. Para cadastrar o comentário no post criado nessa API, deve-se inserir o número do ID retornado ao cadastrar um novo post no campo POST_ID. Poderia ser feito automáricamente, salvando o ID do post cadastrado em uma variável e utilizando esse valor, mas preferi utilizar a forma manual, para maior liberdade do usuário. Ao finalizar o cadastro, os dados inseridos serão retornados juntamente com o ID cadastrado automaticamente para uso posterior.
 
-# watch mode
-$ npm run start:dev
+ - Criar um novo comentário dentro do primeiro post da lista pública de posts:
+  - O uso se dá da mesma maneira do item anterior, sendo necessário inserir o ID manualmente. Poderia ser feito automáticamente, da mesma maneira explicada acima, mas, surgiu uma dúvida se o primeiro post da lista seria o que retorna no topo da busca geral, ou seja, o mais atual, ou o mais antigo da lista, o último retornado. Por isso foi decidido usar o cadastro do id manualmente.
 
-# production mode
-$ npm run start:prod
-```
+ - Apagar o comentário criado no requisito acima:
+  - Foi criada a rota comment/<id>, com o método DELETE. Nesta rota, será excluído o comentário cadastrado sob o ID inserido. Pode ser utilizado tanto para o comentário cadastrado no item anterior, como qualquer outro comentário. Poderia ser feito automáticamente, salvando o ID do comentário cadastrado em uma variável e utilizando esse valor para fazer a exclusão, mas para maior liberdade, foi optado por fazer dessa forma.
 
-## Test
+ - Disponibilizar o projeto em um repositório do Git com as instruções para que a equipe de avaliação consiga executar:
+  - https://github.com/Hudson-Pereira/inicie-educacao
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+ - Features extras:
+  - Foi criada a rota comment, com o método GET, afim de se buscar todos os comentários cadastrados na lista pública.
+  - Foi criada a rota comment/<id>, com o método GET, afim de se buscar o comentário cadastrado sob o ID inserido.
