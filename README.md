@@ -8,13 +8,7 @@ Foram utilizadas nessa API as seguintes ferramentas:
   - TypeScript
   - Docker
 
-Para rodar a API localmente, deve-se utilizar os seguintes comandos: 
-  - Para criar a imagem do NodeJs: 
-    - docker build . -t <name>
-  - Para rodar o container com o servidor:
-    - docker run -p 3000:3000 -d <name>
-  - Para executar o container: 
-    - docker exec -it <name> /bin/bash
+ API em container.
 
 Essa API foi criada com intuito de consumir a API que se encontra no link: 
   - https://gorest.co.in/
