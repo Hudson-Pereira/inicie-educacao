@@ -8,10 +8,12 @@ Foram utilizadas nessa API as seguintes ferramentas:
   - TypeScript
   - Docker
   - Jest
+  - Swagger
 
  API em container.
 
-Testes realizados com Jest - foram adicionados mais cenários de testes nos arquivos já criados ao iniciar o projeto.
+Testes realizados com Jest: 
+  - foram adicionados mais cenários de testes unitários no arquivo de teste da controller de comment já criado ao iniciar o projeto. Como o intúito é demonstrar o conhecimento em teste, optei por cobrir apenas um item, mas poderia ser feito nos demais. Para rodar esse teste e observar a cobertura geral, utiliza-se o comando npm run test:cov, observar que a controller de comment encontra-se 100% coberta.
 
 Essa API foi criada com intuito de consumir a API que se encontra no link: 
   - https://gorest.co.in/
@@ -43,3 +45,4 @@ Requisitos:
  - Features extras:
   - Foi criada a rota comment, com o método GET, afim de se buscar todos os comentários cadastrados na lista pública.
   - Foi criada a rota comment/<id>, com o método GET, afim de se buscar o comentário cadastrado sob o ID inserido.
+  - Class-validator/Class-transformer para validar entrada de dados nos métodos POST.
