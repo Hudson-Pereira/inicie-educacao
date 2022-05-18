@@ -7,8 +7,11 @@ Foram utilizadas nessa API as seguintes ferramentas:
   - ThunderClient
   - TypeScript
   - Docker
+  - Jest
 
  API em container.
+
+Testes realizados com Jest - foram adicionados mais cenários de testes nos arquivos já criados ao iniciar o projeto.
 
 Essa API foi criada com intuito de consumir a API que se encontra no link: 
   - https://gorest.co.in/
