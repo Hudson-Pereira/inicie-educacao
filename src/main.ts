@@ -59,6 +59,7 @@ async function bootstrap() {
     - Foi criada a rota comment, com o método GET, afim de se buscar todos os comentários cadastrados na lista pública.
     - Foi criada a rota comment/<id>, com o método GET, afim de se buscar o comentário cadastrado sob o ID inserido.
     - Class-validator/Class-transformer para validar entrada de dados nos métodos POST.
+    - Tratativa de erros try/catch
   `)
   .setVersion('1.0')
   .addTag('comment')

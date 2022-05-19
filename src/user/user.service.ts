@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import fetch from 'node-fetch';
 
@@ -13,6 +13,7 @@ const myHeaders = new fetch.Headers({
 export class UserService {
 
   async create(createUserDto: CreateUserDto) {
+    try{
     const response = await fetch(`${URL}/users`, {
     method: 'POST', 
     body: JSON.stringify(createUserDto), 
@@ -20,23 +21,38 @@ export class UserService {
   });
     const data = await response.json();
     return data;
+      }catch(error){
+        console.error(error.message)
+        throw new HttpException('Tente novamente.', HttpStatus.BAD_REQUEST)
+      }
   }
 
   async findAll() {
+    try{
     const response = await fetch(`${URL}/users`,{
       method: 'GET',
       headers: myHeaders 
     });
     const dados = await response.json();
     return dados;
+  }catch(error){
+    console.error(error.message)
+    throw new HttpException('Tente novamente.', HttpStatus.BAD_REQUEST)
   }
+  }
+
   async findOne(id: number) {
+    try{
     const response = await fetch(`${URL}/users/${id}`,{
     method: 'GET',
     headers: myHeaders 
   });
     const dados = await response.json();
     return dados;
+    } catch(error){
+      console.error(error.message)
+      throw new HttpException('Tente novamente.', HttpStatus.BAD_REQUEST)
+    }
   }
 
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import fetch from 'node-fetch'
 
@@ -12,6 +12,7 @@ const myHeaders = new fetch.Headers({
 @Injectable()
 export class PostService {
   async create(createPostDto: CreatePostDto) {
+    try{
     const response = await fetch(`${URL}/posts`, {
       method: 'POST', 
       body: JSON.stringify(createPostDto), 
@@ -19,25 +20,38 @@ export class PostService {
     });
       const data = await response.json();
       return data;
+    }catch(error){
+      console.error(error.message)
+      throw new HttpException('Tente novamente.', HttpStatus.BAD_REQUEST)
+    }
   }
 
   async findAll() {
+    try{
     const response = await fetch(`${URL}/posts`, {
       method: 'GET',
       headers: myHeaders
     });
     const data = await response.json();
     return data;
+  } catch(error){
+    console.error(error.message)
+    throw new HttpException('Tente novamente.', HttpStatus.BAD_REQUEST)
+  }
   }
 
   async findOne(id: number) {
+    try{
     const response = await fetch(`${URL}/posts/${id}`, {
       method: 'GET',
       headers: myHeaders
     });
     const data = await response.json();
     return data;
-
+  } catch(error){
+    console.error(error.message)
+    throw new HttpException('Tente novamente.', HttpStatus.BAD_REQUEST)
+  }
   }
 
 }
